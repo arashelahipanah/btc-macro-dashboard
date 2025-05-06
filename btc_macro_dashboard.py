@@ -1,20 +1,33 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import requests
 
+# تنظیمات اولیه
 st.set_page_config(page_title="Bitcoin Macro Dashboard", layout="wide")
 
 # --- Header ---
 st.title("🪙 Bitcoin Macro Scenario Dashboard")
 st.markdown("""
 This dashboard displays key macroeconomic scenarios and their potential impacts on Bitcoin.
-Use the **Refresh Data** button below to reload all charts.
+Use the **Refresh Data** button below to reload all charts and the latest price.
 """)
 
 # --- Refresh Button ---
 if st.button("🔁 Refresh Data"):
     st.experimental_rerun()
+
+# --- دریافت قیمت بیت‌کوین از API CoinGecko ---
+def get_bitcoin_price():
+    url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+    response = requests.get(url)
+    data = response.json()
+    return data['bitcoin']['usd']
+
+btc_price = get_bitcoin_price()
+
+# نمایش قیمت فعلی بیت‌کوین
+st.write(f"💵 Current Bitcoin Price: ${btc_price:,}")
 
 # --- Data Setup ---
 data = pd.DataFrame({
@@ -84,3 +97,4 @@ st.markdown("""
 ---
 Made with ❤️ using Streamlit
 """)
+
