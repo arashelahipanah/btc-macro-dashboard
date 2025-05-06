@@ -1,0 +1,6 @@
+[server]
+headless = true
+
+[general]
+mainPage = "btc_macro_dashboard_api.py"
+ 
