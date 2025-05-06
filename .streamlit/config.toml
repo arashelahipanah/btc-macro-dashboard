@@ -2,4 +2,5 @@
 headless = true
 
 [general]
+mainPage = "btc_macro_dashboard.py"
  
